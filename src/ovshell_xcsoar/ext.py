@@ -8,7 +8,7 @@ from ovshell import api
 
 
 class XCSoarExtension(api.Extension):
-    title = "XCSoar"
+    title = "OpenSoar"
 
     def __init__(self, id: str, shell: api.OpenVarioShell):
         self.id = id
@@ -19,8 +19,8 @@ class XCSoarExtension(api.Extension):
 
 
 class XCSoarApp(api.App):
-    name = "xcsoar"
-    title = "XCSoar"
+    name = "opensoar"
+    title = "OpenSoar"
     description = "Tactical glide computer"
     priority = 90
 
@@ -40,13 +40,13 @@ class XCSoarApp(api.App):
             height="pack",
         )
         try:
-            message = urwid.Text("Running XCSoar...")
-            self.shell.screen.push_dialog("XCSoar", message).no_buttons()
+            message = urwid.Text("Running OpenSoar...")
+            self.shell.screen.push_dialog("OpenSoar", message).no_buttons()
             self.shell.screen.draw()
             try:
                 completed = subprocess.run(cmdline, capture_output=True, env=env)
             finally:
-                message.set_text("Finishing XCSoar...")
+                message.set_text("Finishing OpenSoar...")
                 self.shell.screen.draw()
                 self.shell.os.sync()
                 self.shell.screen.pop_activity()
@@ -72,7 +72,7 @@ class XCSoarApp(api.App):
         return env
 
     def _make_commandline(self) -> Sequence[str]:
-        binary = os.environ.get("XCSOAR_BIN", "/usr/bin/xcsoar")
+        binary = os.environ.get("XCSOAR_BIN", "/usr/bin/OpenSoar")
         return [binary, "-fly"]
 
 
